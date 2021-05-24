@@ -36,11 +36,11 @@ Available commands:
     
 Adds new department named Technology with 10% salary supplement
     
-    hr:department:add Technology percentage 10
+    bin/console hr:department:add Technology percentage 10
 
 Adds new department named Support with $100 salary supplement per worked year
 
-    hr:department:add Technology fixed_amount 10000
+    bin/console hr:department:add Technology fixed_amount 10000
 
 On success
 
@@ -50,7 +50,7 @@ On success
 
 Adds new employee named Zofia Brynka assigned to department with uuid (9c30868a-02ac-4f43-8bf2-5bf886f1a4f3) with 10 years worked and base salary $2500
 
-    hr:employee:add Zofia Brynka 9c30868a-02ac-4f43-8bf2-5bf886f1a4f3 10 250000
+    bin/console hr:employee:add Zofia Brynka 9c30868a-02ac-4f43-8bf2-5bf886f1a4f3 10 250000
 
 On success
 
@@ -76,3 +76,9 @@ Options
     -s, --sort[=SORT]                      Column sort. Available sorts: [department_name, employee_first_name, employee_last_name, base_salary, salary_supplement_type, supplement_salary_value, final_salary] [default: "employee_first_name"]
     -d, --sort_direction[=SORT_DIRECTION]  Sorting direction [default: "desc"]
     -f, --filters[=FILTERS]                Column filter. Available filters: [department_name, employee_first_name, employee_last_name]. Example syntax: employee_first_name=Ania,department_name=HR
+
+# Other information
+
+## Tests coverage
+
+Just to simplicity tests covers only the most important layers Domain and Application.
