@@ -1,0 +1,7 @@
+controllers:
+    resource: '../../src/*/Framework/Controller/*'
+    type: 'annotation'
+
+actions:
+    resource: '../../src/*/Framework/Action/*'
+    type: 'annotation'

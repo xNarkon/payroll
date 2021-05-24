@@ -1,0 +1,53 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+        bind:
+            $humanResourcesCommandBus: '@human_resources.command.bus'
+            $humanResourcesQueryBus: '@human_resources.query.bus'
+            $integrationEventBus: '@integration.event.bus'
+
+    HumanResources\Application\:
+        resource: '../../src/HumanResources/Application/'
+
+    HumanResources\Domain\:
+        resource: '../../src/HumanResources/Domain/'
+
+    HumanResources\Infrastructure\:
+        resource: '../../src/HumanResources/Infrastructure/'
+
+    HumanResources\Framework\:
+        resource: '../../src/HumanResources/Framework'
+
+    HumanResources\Framework\Controller\:
+        resource: '../../src/HumanResources/Framework/Controller'
+        tags: [ 'controller.service_arguments' ]
+
+    HumanResources\Infrastructure\Doctrine\DBAL\DbalDepartmentRepository: ~
+    HumanResources\Domain\Repository\DepartmentRepositoryInterface: '@HumanResources\Infrastructure\Doctrine\DBAL\DbalDepartmentRepository'
+
+    HumanResources\Infrastructure\Doctrine\DBAL\DbalEmployeeRepository: ~
+    HumanResources\Domain\Repository\EmployeeRepositoryInterface: '@HumanResources\Infrastructure\Doctrine\DBAL\DbalEmployeeRepository'
+
+    HumanResources\Infrastructure\Doctrine\EmployeeDataMapper: ~
+    HumanResources\Domain\DataMapper\EmployeeDataMapperInterface: '@HumanResources\Infrastructure\Doctrine\EmployeeDataMapper'
+
+    HumanResources\Infrastructure\Doctrine\DepartmentDataMapper: ~
+    HumanResources\Domain\DataMapper\DepartmentDataMapperInterface: '@HumanResources\Infrastructure\Doctrine\DepartmentDataMapper'
+
+    HumanResources\Application\CQRS\Command\Handler\CreateDepartmentCommandHandler:
+        tags:
+            -
+                name: messenger.message_handler
+                bus: human_resources.command.bus
+    HumanResources\Application\CQRS\Command\Handler\CreateEmployeeCommandHandler:
+        tags:
+            -
+                name: messenger.message_handler
+                bus: human_resources.command.bus
+    HumanResources\Application\CQRS\Query\Handler\GetDepartmentSalarySupplementQueryHandler:
+        tags:
+            -
+                name: messenger.message_handler
+                bus: human_resources.query.bus

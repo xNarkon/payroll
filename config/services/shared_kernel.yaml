@@ -1,0 +1,14 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    SharedKernel\Application\:
+        resource: '../../src/SharedKernel/Application/'
+
+    SharedKernel\Domain\:
+        resource: '../../src/SharedKernel/Domain/'
+
+    SharedKernel\Framework\:
+        resource: '../../src/SharedKernel/Framework/'

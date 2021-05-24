@@ -1,0 +1,29 @@
+framework:
+    messenger:
+        default_bus: integration.event.bus
+        buses:
+            integration.event.bus:
+            human_resources.command.bus:
+                middleware:
+                - doctrine_ping_connection
+                - doctrine_close_connection
+                - doctrine_transaction: [ 'default' ]
+            human_resources.query.bus:
+                middleware:
+                    - doctrine_ping_connection
+                    - doctrine_close_connection
+                    - doctrine_transaction: [ 'default' ]
+            payroll.command.bus:
+                middleware:
+                    - doctrine_ping_connection
+                    - doctrine_close_connection
+                    - doctrine_transaction: [ 'default' ]
+        transports:
+        # https://symfony.com/doc/current/messenger.html#transport-configuration
+        # async: '%env(MESSENGER_TRANSPORT_DSN)%'
+        # failed: 'doctrine://default?queue_name=failed'
+        # sync: 'sync://'
+
+        routing:
+        # Route your messages to the transports
+        # 'App\Message\YourMessage': async

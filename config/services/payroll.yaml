@@ -1,0 +1,43 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+        public: false
+
+    Payroll\Application\:
+        resource: '../../src/Payroll/Application/'
+
+    Payroll\Domain\:
+        resource: '../../src/Payroll/Domain/'
+
+    Payroll\Infrastructure\:
+        resource: '../../src/Payroll/Infrastructure/'
+
+    Payroll\Framework\:
+        resource: '../../src/Payroll/Framework'
+
+    Payroll\Framework\Controller\:
+        resource: '../../src/Payroll/Framework/Controller'
+        tags: [ 'controller.service_arguments' ]
+
+    Payroll\Infrastructure\Doctrine\DBAL\DbalPayrollRepository: ~
+    Payroll\Domain\Repository\PayrollRepositoryInterface: '@Payroll\Infrastructure\Doctrine\DBAL\DbalPayrollRepository'
+
+    Payroll\Domain\Calculation\FixedAmountSalarySupplementCalculationStrategy: ~
+    Payroll\Domain\Calculation\PercentageSalarySupplementCalculationStrategy: ~
+    Payroll\Domain\Calculation\CalculationStrategies:
+        arguments:
+            - '@Payroll\Domain\Calculation\FixedAmountSalarySupplementCalculationStrategy'
+            - '@Payroll\Domain\Calculation\PercentageSalarySupplementCalculationStrategy'
+
+    Payroll\Domain\Service\StrategyBasedPayrollCalculator: ~
+    Payroll\Domain\Service\PayrollCalculatorInterface: '@Payroll\Domain\Service\StrategyBasedPayrollCalculator'
+
+    Payroll\Application\CQRS\IntegrationEvent\Handler\EmployeeAddedEventHandler:
+        tags:
+            -
+                name: messenger.message_handler
+                bus: integration.event.bus
+
+    Payroll\Infrastructure\Doctrine\DBAL\Query\DbalPayrollReportQuery: ~
+    Payroll\Application\PayrollReportQueryInterface: '@Payroll\Infrastructure\Doctrine\DBAL\Query\DbalPayrollReportQuery'

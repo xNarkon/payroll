@@ -1,0 +1,17 @@
+services:
+  mysql:
+    image: mysql:8
+    command: --default-authentication-plugin=mysql_native_password
+    restart: 'no'
+    ports:
+      - '3306:3306'
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: app
+  php:
+    build:
+      context: .docker/php
+      dockerfile: Dockerfile
+    entrypoint: /bin/bash -c "make run && tail -f /dev/null"
+    volumes:
+    - "./:/app"
