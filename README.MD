@@ -5,7 +5,7 @@ Example of a simple payroll modular-monolith application.
 ## Bounded Contexts:
 
 - HumanResources - contains whole logic connected to management of departments and employees
-- Payroll - contains logic with payroll, and it's reporting
+- Payroll - contains logic with payroll, and its reporting
 
 # Architecture decisions
 
