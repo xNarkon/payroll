@@ -77,6 +77,10 @@ Options
     -d, --sort_direction[=SORT_DIRECTION]  Sorting direction [default: "desc"]
     -f, --filters[=FILTERS]                Column filter. Available filters: [department_name, employee_first_name, employee_last_name]. Example syntax: employee_first_name=Ania,department_name=HR
 
+Filters:
+    
+    In this project there is only one implementation uses the DBAL implementation ->orWhere from query builder.
+
 # Other information
 
 ## Tests coverage
