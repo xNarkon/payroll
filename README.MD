@@ -16,6 +16,10 @@ Due to the fact that the project is only an example, the simplest, not necessari
 - Shared Database - Due to the simplicity, I chose to integrate by sharing the database between contexts. It introduces coupling in the data layer, but this is just an example, and it is the easiest way to generate report.
 - Integration Events - Used to generate the actual payroll live. Due to the fact that the requirement is to generate only the current report, this method is fully sufficient to generate such reports.
 
+## Technology debt
+
+- MoneyPHP used as a part of a Domain, so it's not totally agnostic - just to simplicity of this project, I used it across all layers. This library implements properly Martin Fowler Money Object pattern, so it guarantees proper money calculations.
+
 # Setup with Docker
 Steps to setup a project:
 
@@ -30,9 +34,13 @@ Available commands:
 
 #### Adds new department
     
-Adds new departnment named Technology with 10% salary supplement
+Adds new department named Technology with 10% salary supplement
     
     hr:department:add Technology percentage 10
+
+Adds new department named Support with $100 salary supplement per worked year
+
+    hr:department:add Technology fixed_amount 10000
 
 On success
 
